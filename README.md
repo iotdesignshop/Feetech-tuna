@@ -195,12 +195,22 @@ The register dump should look similar to this:
 69 Present Current = 0
 ```
 
-## Read Register Command
+### Read Register Command
 
 Retrieves the value for a single register
 
 ```
 readreg <address>
+```
+
+### Set Position Command
+
+Sets servo position to a specified angle, or to min/max travel
+
+```
+setpos <angle>
+setpos min
+setpos max
 ```
 
 
