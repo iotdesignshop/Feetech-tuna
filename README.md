@@ -200,7 +200,7 @@ The register dump should look similar to this:
 Retrieves the value for a single register
 
 ```
-readreg <address>
+>> readreg <address>
 ```
 
 ### Set Position Command
@@ -208,9 +208,9 @@ readreg <address>
 Sets servo position to a specified angle, or to min/max travel
 
 ```
-setpos <angle>
-setpos min
-setpos max
+>> setpos <angle>
+>> setpos min
+>> setpos max
 ```
 
 
@@ -273,7 +273,7 @@ you would like to initialize them to. Again - ensuring these are valid values is
 the currently selected servo when you issue the command:
 
 ```
-loadtemplate <template ID>
+>> loadtemplate <template ID>
 ```
 
 
