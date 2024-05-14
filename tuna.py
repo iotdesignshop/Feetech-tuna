@@ -1,4 +1,6 @@
 import argparse
+from prompt_toolkit import prompt
+from prompt_toolkit.history import InMemoryHistory
 from feetech_tuna import FeetechTuna
 
 # Command line arts for port and baudrate
@@ -8,6 +10,10 @@ parser.add_argument('--baudrate', type=int, default=1000000, help='The baudrate 
 
 args = parser.parse_args()
 
+# Prompt history
+history = InMemoryHistory()
+
+# Create a new FeetechTuna instance
 tuna = FeetechTuna()
 
 # Welcome message
@@ -28,11 +34,11 @@ else:
 selectedServo = None
 while True:
     if (selectedServo == None):
-        prompt = ">> "
+        pmsg = ">> "
     else :
-        prompt = "(Servo " + str(selectedServo) + ") >> "
+        pmsg = "(Servo " + str(selectedServo) + ") >> "
 
-    command = input(prompt)
+    command = prompt(pmsg, history=history)
 
     if command == "exit" or command == "quit":
         break
@@ -56,6 +62,37 @@ while True:
             regs = tuna.listRegs(selectedServo)
             for reg in regs:
                 print(str(reg["addr"]) + " " + reg["name"] + " = " + str(reg["value"]))
+        else:
+            print("No servo selected")
+    elif command == "unlockeeprom":
+        if selectedServo != None:
+            tuna.unlockEEPROM(selectedServo)
+        else:
+            print("No servo selected")
+    elif command == "lockeeprom":
+        if selectedServo != None:
+            tuna.lockEEPROM(selectedServo)
+        else:
+            print("No servo selected")
+    elif command.startswith("writereg"):
+        if selectedServo != None:
+            parts = command.split(" ")
+            if len(parts) == 3:
+                addr = int(parts[1])
+                value = int(parts[2])
+                tuna.writeReg(selectedServo, addr, value)
+            else:
+                print("Usage: writereg <addr> <value>")
+        else:
+            print("No servo selected")
+    elif command.startswith("readreg"):
+        if selectedServo != None:
+            parts = command.split(" ")
+            if len(parts) == 2:
+                addr = int(parts[1])
+                tuna.readReg(selectedServo, addr)
+            else:
+                print("Usage: readreg <addr>")
         else:
             print("No servo selected")
     else:

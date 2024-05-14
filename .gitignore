@@ -161,3 +161,6 @@ cython_debug/
 
 # Virtual env
 tuna_env
+
+# VS Code stuff
+.vscode
