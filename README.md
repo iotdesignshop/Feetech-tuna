@@ -8,6 +8,12 @@ that you understand the usage and function of these registers before manipulatin
 or to render it unusable if you set these registers incorrectly. Consult the Feetech factory documentation for your servos before 
 using the tool!_
 
+You should become familiar with the Feetech Servo Tutorial and how these operations work using the official toolset before attempting
+to use this system:
+
+https://www.feetechrc.com/Data/feetechrc/upload/file/20201127/start%20%20tutorial201015.pdf
+
+
 
 ### SCS Servo Family
 
