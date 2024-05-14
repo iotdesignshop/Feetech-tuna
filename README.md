@@ -1,6 +1,13 @@
 # Feetech-tuna
 Cross Platform Feetech Servo Tuner Tool
 
+## Important Notices and Safety Information
+
+_This tool is provided as a utility tool for reading and setting registers and parameters from Feetech servos. You should ensure
+that you understand the usage and function of these registers before manipulating them. It may be possible to damage your servo motor
+or to render it unusable if you set these registers incorrectly. Consult the Feetech factory documentation for your servos before 
+using the tool!_
+
 ## Installation
 
 ### Python Virtual Environment
@@ -81,6 +88,29 @@ This will scan the servo bus for servos and report back the ID's and model numbe
 >> list
 ```
 
+The response will look like this:
+```
+Found 18 servos
+Servo 101 - Model: 521
+Servo 102 - Model: 521
+Servo 103 - Model: 521
+Servo 104 - Model: 521
+Servo 105 - Model: 521
+Servo 106 - Model: 521
+Servo 107 - Model: 521
+Servo 108 - Model: 521
+Servo 109 - Model: 521
+Servo 110 - Model: 521
+Servo 111 - Model: 521
+Servo 112 - Model: 521
+Servo 113 - Model: 521
+Servo 114 - Model: 521
+Servo 115 - Model: 521
+Servo 116 - Model: 521
+Servo 117 - Model: 1289
+Servo 118 - Model: 1289
+```
+
 ### Select Command
 
 This will select a specific servo ID to direct subsequent servo specific commands to
@@ -94,7 +124,61 @@ This will select a specific servo ID to direct subsequent servo specific command
 This will deselect a previously selected servo
 ```
 >> deselect
-``` 
+```
+
+### ListRegs Command
+
+This will display a list of the servo register values (for a selected servo)
+
+```
+>> listregs
+```
+
+The register dump should look similar to this:
+```
+5 ID = 116
+3 Model = 521
+6 Baudrate = 0
+9 Min Angle Limit = 500
+11 Max Angle Limit = 3000
+13 Max Temperature Limit = 70
+14 Max Voltage Limit = 90
+15 Min Voltage Limit = 40
+16 Max Torque Limit = 1000
+18 Phase = 253
+19 Unloading Condition = 38
+20 LED Alarm Condition = 38
+21 P Coefficient = 32
+22 D Coefficient = 32
+23 I Coefficient = 0
+24 Minimum Startup Force = 0
+26 CW Dead Zone = 0
+27 CCW Dead Zone = 0
+28 Protection Current = 100
+30 Angular Resolution = 1
+31 Offset = 0
+33 Mode = 0
+34 Protective Torque = 20
+35 Protection Time = 200
+36 Overload Torque = 40
+37 Speed closed loop P proportional coefficient = 10
+38 Over Current Protection Time = 200
+39 Velocity closed loop I integral coefficient = 200
+40 Torque Enable = 0
+41 Acceleration = 0
+42 Goal Position = 0
+44 Goal Time = 0
+46 Goal Speed = 0
+55 Lock = 1
+56 Present Position = 513
+58 Present Speed = 0
+60 Present Load = 0
+62 Present Voltage = 61
+63 Present Temperature = 31
+65 Status = 0
+66 Moving = 0
+69 Present Current = 0
+```
 
 ### Exit Command
 
