@@ -8,6 +8,13 @@ that you understand the usage and function of these registers before manipulatin
 or to render it unusable if you set these registers incorrectly. Consult the Feetech factory documentation for your servos before 
 using the tool!_
 
+## Call for Conributors
+
+This tool is provided with a very basic text-based interface for simplicity. It would be fantastic to see these functions switched over
+to a GUI-based tool at some point along with many other usability improvements. We welcome contributions to the repo and will consider all
+PR's.
+
+
 ## Installation
 
 ### Python Virtual Environment
@@ -126,7 +133,7 @@ This will deselect a previously selected servo
 >> deselect
 ```
 
-### ListRegs Command
+### List Registers Command
 
 This will display a list of the servo register values (for a selected servo)
 
@@ -179,6 +186,40 @@ The register dump should look similar to this:
 66 Moving = 0
 69 Present Current = 0
 ```
+
+## Read Register Command
+
+Retrieves the value for a single register
+
+```
+readreg <address>
+```
+
+
+### Unlock EEPROM Command
+Most register values will only save into the EEPROM (non volatile memory) of the servo if the EEPROM is unlocked
+before the value is written, and then locked afterward. Generally, you would unlock, set several values and then lock
+to save the values
+
+```
+>> unlockeeprom
+```
+
+### Lock EEPROM Command
+Once register values have been updated, you can lock the EEPROM to write these to flash memory to make them permanent
+on the servo
+```
+>> lockeeprom
+```
+
+### Write Register Command
+Writes a new value into a register - note that range checking and validity is not enforced by this command. It will attempt
+to write whatever value you ask it into the register
+
+```
+>> writereg <address> <value>
+```
+
 
 ### Exit Command
 
