@@ -8,11 +8,19 @@ that you understand the usage and function of these registers before manipulatin
 or to render it unusable if you set these registers incorrectly. Consult the Feetech factory documentation for your servos before 
 using the tool!_
 
-## Call for Conributors
+
+### SCS Servo Family
+
+This tool has currently been tested with the STS servo family from Feetech. While we do support SCS servos as well via the flags, 
+this functionality is currently not well tested. If you use SCS servos with it, we would appreciate hearing about your results.
+
+
+## Call for Contributors
 
 This tool is provided with a very basic text-based interface for simplicity. It would be fantastic to see these functions switched over
 to a GUI-based tool at some point along with many other usability improvements. We welcome contributions to the repo and will consider all
 PR's.
+
 
 
 ## Installation
@@ -46,10 +54,10 @@ down below on how to do this on the different host platforms (Windows/Mac/Linux)
 
 The command line to launch the tuner is as follows:
 ```(bash)
-python tuna.py <URT-1 Serial Port> --baudrate <baudrate (optional - defaults to 1000000 which is used for Feetech STS servos)
+python tuna.py <URT-1 Serial Port> --baudrate <baudrate (optional - defaults to 1000000 which is used for Feetech STS servos) --servofamily <sms_sts, scscl (defaults to sms_sts)>
 ```
 
-On Linux, with default baudrate, this might look something like this:
+On Linux, with default baudrate and connecting to STS servos, this might look something like this:
 ```(bash)
 python tuna.py /dev/ttyUSB0
 ```
