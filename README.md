@@ -238,6 +238,37 @@ This will exit Feetech-tuna and shut down the serial port properly.
 ```
 
 
+## Servo Template System
+We anticipate that one of the most typical use cases for Feetech-tuna will be in commissioning new servos. To assist this,
+we have created a basic templating system where you can define Servo ID's and Register Values that you would like to load 
+onto a servo in a single operation.
+
+__servotemplates.py__ contains a dictionary that you can customize with your own servo templates. It's pretty straightforward:
+
+```
+# Template table for servo registers
+servoTemplates = {
+    101 : { 
+        9 : 1500,   # Min Angle Limit 
+        11 : 3000,  # Max Angle Limit
+        13 : 70,    # Max Temperature Limit
+        18 : 253,   # Phase
+        36 : 40,    # Overload Torque
+    }
+}
+```
+
+The data type is just a dictionary with the key being a servo ID, and then the values being a dictionary of register addresses and the values
+you would like to initialize them to. Again - ensuring these are valid values is up to you, but the tuner will attempt to write them into a 
+the currently selected servo when you issue the command:
+
+```
+loadtemplate <template ID>
+```
+
+
+
+
 
 
 
