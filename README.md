@@ -26,7 +26,7 @@ With your virtual environment active:
 pip install -r requirements.txt
 ```
 
-## Usage
+## Launching the Tuner
 Once you have all the dependencies installed, you will need to determine the serial port of your Feetech URT-1 board. There are some notes
 down below on how to do this on the different host platforms (Windows/Mac/Linux).
 
@@ -68,5 +68,43 @@ You should see output indicating the path to the device similar to this:
 
 ### Determining Serial Port on Windows
 (TBD)
+
+## Usage and Commands
+
+Once the tuner is active and connected to to the URT-1 serial port, you can use the following commands at the prompt. 
+
+### List Command
+
+This will scan the servo bus for servos and report back the ID's and model numbers of all of the servos found on the bus.
+
+```
+>> list
+```
+
+### Select Command
+
+This will select a specific servo ID to direct subsequent servo specific commands to
+
+```
+>> select <servo id>
+```
+
+### Deselect Command
+
+This will deselect a previously selected servo
+```
+>> deselect
+``` 
+
+### Exit Command
+
+This will exit Feetech-tuna and shut down the serial port properly.
+
+```
+>> exit
+```
+
+
+
 
 
