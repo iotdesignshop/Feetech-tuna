@@ -37,6 +37,9 @@ PR's.
 
 ## Installation
 
+### Python Versions
+We recommend Python 3.10 or later. Earlier versions (such as 3.8) have some issues on Windows. 
+
 ### Python Virtual Environment
 We recommend using a Python Virtual Environment to manage dependencies and packages for the project.
 
@@ -139,7 +142,20 @@ python tuna.py /dev/tty.usbserial-1430
 
 
 ### Determining Serial Port on Windows
-(TBD)
+
+Device Manager is the easiest way to find the USB-SERIAL CH340 Device in Windows. To do this:
+
+1) Press Win + X and select Device Manager.
+2) Expand the "Ports (COM & LPT)" section to view the list of serial devices. Each entry should show the COM port number and device description.
+These methods should help you identify and list all serial port devices connected to your Windows system via USB.
+
+You should see an entry there called __USB-SERIAL CH340__ and it will indicate which COM port is assigned to the adapter.
+
+Then, you can run __tuna.py__ with that argument:
+```
+python tuna.py COMxx
+```
+
 
 ## Usage and Commands
 
