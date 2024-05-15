@@ -45,7 +45,14 @@ source tuna_env/bin/activate
 
 
 #### Creating a Virtual Environment on Windows
-(TBD)
+```
+python -m venv tuna_env
+``
+
+Then, to activate your new environment:
+```
+.\tuna_env\Scripts\activate
+```
 
 ### Install Requirements
 With your virtual environment active:
