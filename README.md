@@ -92,7 +92,38 @@ You should see output indicating the path to the device similar to this:
 
 
 ### Determining Serial Port on Mac
-(TBD)
+On a Mac, you can get a detailed listing of serial port devices using the following command:
+
+```(bash)
+ioreg -p IOUSB -w0 | grep -E '(Serial|USB)'
+```
+
+This should give you back a list showing the Feetech URT-1 in it somewhere, similar to this:
+
+```
+  | +-o USB Serial@14300000  <class AppleUSBDevice, id 0x105c6f4d1, registered, matched, active, busy 0 (18 ms), retain 13>
+```
+
+Then, if you run:
+
+```
+ls /dev/tty.usb*
+```
+
+You should see a device similar to the descriptor above, such as:
+
+```
+/dev/tty.usbserial-1430
+```
+
+This will be the address you give to tuna.py when launching:
+
+```
+python tuna.py /dev/tty.usbserial-1430
+```
+
+
+
 
 ### Determining Serial Port on Windows
 (TBD)
