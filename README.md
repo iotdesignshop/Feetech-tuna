@@ -47,7 +47,7 @@ source tuna_env/bin/activate
 #### Creating a Virtual Environment on Windows
 ```
 python -m venv tuna_env
-``
+```
 
 Then, to activate your new environment:
 ```
