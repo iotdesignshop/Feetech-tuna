@@ -12,6 +12,8 @@ servoRegs = [
     { "name": "Model", "addr": SMS_STS_MODEL_L, "size": 2, "type": "uint16"},
     { "name": "ID", "addr": SMS_STS_ID, "size": 1, "type": "uint8" },
     { "name": "Baudrate", "addr": SMS_STS_BAUD_RATE, "size": 1, "type": "uint8" },
+    { "name": "Return Delay", "addr": 7, "size": 1, "type": "uint8" },
+    { "name": "Response Status Level", "addr": 8, "size": 1, "type": "uint8" },
     { "name": "Min Angle Limit", "addr": SMS_STS_MIN_ANGLE_LIMIT_L, "size": 2, "type": "uint16" },
     { "name": "Max Angle Limit", "addr": SMS_STS_MAX_ANGLE_LIMIT_L, "size": 2, "type": "uint16" },
     { "name": "Max Temperature Limit", "addr": 13, "size": 1, "type": "uint8" },
@@ -59,11 +61,19 @@ class FeetechTuna:
     def __init__(self):
         pass
 
-    def openSerialPort(self, port, baudrate) -> bool:
+    def openSerialPort(self, port, baudrate, servoFamily="sms_sts") -> bool:
         print("Opening serial port: " + port)
 
         self.porthandler = PortHandler(port)
-        self.packetHandler = sms_sts(self.porthandler)
+
+        if servoFamily == "sms_sts":
+            self.packetHandler = sms_sts(self.porthandler)
+        elif servoFamily == "scscl":
+            self.packetHandler = scscl(self.porthandler)
+        else:
+            print("Unknown servo family: " + servoFamily)
+            return False
+        
         if (self.porthandler.openPort()):
             print("Opened port. Configuring baudrate...")
         else:
@@ -88,11 +98,14 @@ class FeetechTuna:
     def listServos(self):
         result = []
         print("Scanning servo bus. Please wait...")
-        for servo in range(0, 254):
+        for servo in range(1, 254):
             model_number, comm_result, error = self.packetHandler.ping(servo)
-            print('.', end='', flush=True)
             if comm_result == COMM_SUCCESS:
                 result.append({ "id" : servo, "model": model_number})
+                print('+', end='', flush=True)
+            else:
+                print('.', end='', flush=True)
+            
         print()
         return result
     
@@ -131,8 +144,10 @@ class FeetechTuna:
             else:
                 value = value[0]
             print(reg["name"] + " = " + str(value))
+            return value
         else:
             print("Failed to read register")
+            return None
     
     def writeReg(self, servoId, regAddr, value):
         reg = None
@@ -149,11 +164,19 @@ class FeetechTuna:
         else:
             value = [value]
         
-        comm_result, error = self.packetHandler.writeTxRx(servoId, regAddr, reg["size"], value)
-        if comm_result == COMM_SUCCESS:
-            print("Register written")
-        else:
-            print("Failed to write register")
+        retries = 3
+
+        while retries > 0:
+            comm_result, error = self.packetHandler.writeTxRx(servoId, regAddr, reg["size"], value)
+            if comm_result == COMM_SUCCESS:
+                print(f"Register {regAddr} written")
+                return True
+            else:
+                print("Failed to write register - retrying...")
+                retries -= 1
+
+        print("Failed to write register - giving up")
+        return False
     
     def unlockEEPROM(self, servoId):
         self.packetHandler.unLockEprom(servoId)
