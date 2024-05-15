@@ -1,6 +1,9 @@
 # Feetech-tuna
 Cross Platform Feetech Servo Tuner Tool
 
+![IMG_8051](https://github.com/iotdesignshop/Feetech-tuna/assets/2821763/97f59ad3-29a2-4357-a35e-a58a12f00f51)
+
+
 ## Important Notices and Safety Information
 
 _This tool is provided as a utility tool for reading and setting registers and parameters from Feetech servos. You should ensure
@@ -14,11 +17,14 @@ to use this system:
 https://www.feetechrc.com/Data/feetechrc/upload/file/20201127/start%20%20tutorial201015.pdf
 
 
-
 ### SCS Servo Family
 
 This tool has currently been tested with the STS servo family from Feetech. While we do support SCS servos as well via the flags, 
 this functionality is currently not well tested. If you use SCS servos with it, we would appreciate hearing about your results.
+
+## Hardware and Connections
+
+This tool assumes you have a Feetech URT-1 controller board powered and connected to USB on the host machine. Instructions for using the URT-1 can be found in the Feetech Tutorial link above.
 
 
 ## Call for Contributors
